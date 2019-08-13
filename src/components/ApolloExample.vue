@@ -74,22 +74,17 @@ import Component  from 'vue-class-component';
 import FILES from './../graphql/Files.gql';
 import UPLOAD_FILE from '../graphql/UploadFile.gql'
 
+@Component({
+  apollo: FILES
+})
 export default class ApolloExample extends Vue {
   name: string = 'Anne';
     newMessage: string = '';
 
-
-  apollo: {
-    files: FILES,
-  },
-
-  computed: {
-    formValid () {
+    get formValid () {
       return this.newMessage
-    },
-  },
+    }
 
-  methods: {
     onMessageAdded (previousResult, { subscriptionData }) {
       return {
         messages: [
@@ -97,7 +92,6 @@ export default class ApolloExample extends Vue {
           subscriptionData.data.messageAdded,
         ],
       }
-    },
 
     async onUploadImage ({ target }) {
       if (!target.validity.valid) return
@@ -113,7 +107,7 @@ export default class ApolloExample extends Vue {
         },
       })
     }
-  },
+  }
 }
 </script>
 
